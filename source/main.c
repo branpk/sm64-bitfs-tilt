@@ -217,13 +217,52 @@ int main(void) {
   //   // }
   // }
 
-  // v3f pos = {0, 0, 262144};
-  // v3f pos = {-66987, 0.000000, -253440};
-  f32 minny = 0.71;
+  // v3f n = {-0.265588, 0.850000, 0.454932};
+  // v3f p = findPosForTargetNormal(n);
+  // printf("%f %f %f\n", p.x + -2866, p.y + -3225, p.z + -715);
 
-  // v3f n = {-0.254980, 0.801901, -0.553479};
-  v3f n = {0, 1, 0};
+  // v3f pos = {0, 0, 262144};
+  // v3f pos = {-65536, 0, -262144}; // qdefacto = 270211.85028, qspeed = 317896.294447, speed = 1271585.17779
+  // actual pos = -68550.675293, -3054.99609375, -262587.124115
+  f32 minny = 0.85;
+
+  // v3f n = {0.216, 0.765, -0.352};
+  // v3f n = {-0.252748, 0.85, 0.462189};
+  v3f n = {-0.253672, 0.850000, 0.461682};
+  // v3f n = {0, 1, 0};
   f32 vmax = -10000000;
+
+  v3f p = findPosForTargetNormal(n);
+  printf("pos: %f %f %f\n", p.x + -2866, p.y + -3225, p.z + -715);
+
+  // int a = 0x9F0; // 34, 117
+  // float r = -1080000 / 4;
+  // printf("%f %f\n", -3014.67529296875 + (r * sins(a)), -443.124114990234 + (r * coss(a)));
+  // printf("%f %f\n", -65536 - (r * sins(a)), -262144 - (r * coss(a)));
+
+  v3f pos = {-68550.675293 - -2866, -3054.99609375 - -3225, -262587.124115 - -715};
+  // printf("ok %f\n", valueForNormal(pos, n));
+
+  // for (int i = 0; i < 0x10000; i += 0x10) {
+
+  // }
+
+  // f32 vmax = -100000;
+
+  // for (f32 b = 0; b < 2 * 3.141592653f; b += 0.0001) {
+  //   f32 r = 100000.0f;
+  //   v3f pos = {r * sin(b), 0, r * cos(b)};
+
+  //   // normalizeV3f(&n);
+
+  //   f32 v = valueForNormal(pos, n);
+  //   if (v < vmax) {
+  //     continue;
+  //   }
+
+  //   vmax = v;
+  //   printf("N = %f %f %f, v = %f\n", n.x, n.y, n.z, vmax);
+  // }
 
   // while (1) {
   //   v3f newn = {n.x, n.y, n.z};
@@ -248,25 +287,25 @@ int main(void) {
   //   printf("N = %f %f %f, v = %f\n", n.x, n.y, n.z, vmax);
   // }
 
-  for (f32 b = 0; b < 2 * 3.141592653f; b += 0.001) {
-    f32 r = 100000.0f;
-    v3f pos = {r * sin(b), 0, r * cos(b)};
+  // for (f32 b = 0; b < 2 * 3.141592653f; b += 0.001) {
+  //   f32 r = 100000.0f;
+  //   v3f pos = {r * sin(b), 0, r * cos(b)};
 
-    for (f32 a = 0; a < 2 * 3.141592653f; a += 0.001) {
-      f32 xz = sqrtf(1 - minny*minny);
-      v3f newn = {xz * sin(a), minny, xz * cos(a)};
-      normalizeV3f(&newn);
+    // for (f32 a = 0; a < 2 * 3.141592653f; a += 0.001) {
+    //   f32 xz = sqrtf(1 - minny*minny);
+    //   v3f newn = {xz * sin(a), minny, xz * cos(a)};
+    //   normalizeV3f(&newn);
 
-      f32 v = valueForNormal(pos, newn);
-      if (v < vmax) {
-        continue;
-      }
+    //   f32 v = valueForNormal(pos, newn);
+    //   if (v < vmax) {
+    //     continue;
+    //   }
 
-      n = newn;
-      vmax = v;
-      printf("N = %f %f %f, v = %f\n", n.x, n.y, n.z, vmax);
-    }
-  }
+    //   n = newn;
+    //   vmax = v;
+    //   printf("N = %f %f %f, v = %f\n", n.x, n.y, n.z, vmax);
+    // }
+  // }
 
   // normalizeV3f(&n);
   // printf("N = %f %f %f\n", n.x, n.y, n.z);
